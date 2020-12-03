@@ -20,7 +20,7 @@ public class PrefixMatches {
 
     public int load(String... strings) {
         int words = 0;
-        for (String str: strings){
+        for (String str: strings) {
             for (String word: str.split(" ")) {
                 if (word.length() > MIN_LENGTH) {
                     trie.add(new Tuple(word.toLowerCase(), word.length()));
@@ -40,8 +40,8 @@ public class PrefixMatches {
         return trie.delete(word.toLowerCase());
     }
 
-    public Iterable<String> wordsWithPrefix(String pref) {
-        pref = pref.toLowerCase();
+    public Iterable<String> wordsWithPrefix(String pre) {
+        String pref = pre.toLowerCase();
         if (pref.length() < MIN_LENGTH) {
             throw new IllegalArgumentException();
         }

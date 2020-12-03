@@ -14,7 +14,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     }
 
-    private final  Node head;
+    private final Node head;
     private final int size;
 
     public ImmutableLinkedList() {
@@ -35,23 +35,25 @@ public class ImmutableLinkedList implements ImmutableList {
         return addAll(index, new Object[] {e});
     }
 
-     public ImmutableLinkedList addAll(Object[] c) {
+    public ImmutableLinkedList addAll(Object[] c) {
         return addAll(size, c);
     }
 
-     private static Node[] copy(Node node, int length) {
+    private static Node[] copy(Node node, int length) {
         Node copyHead = new Node();
         Node copyCurrent = copyHead;
+        Node current = node;
         for (int i = 0; i < length; i++) {
-            copyCurrent.setValue(node.getValue());
+            copyCurrent.setValue(current.getValue());
             copyCurrent.setNext(new Node());
             copyCurrent = copyCurrent.getNext();
-            node = node.getNext();
+            current = current.getNext();
         }
-        return new Node[] {copyHead, copyCurrent, node};
+        return new Node[] {copyHead, copyCurrent, current};
     }
 
     public ImmutableLinkedList addAll(int index, Object[] c) {
+
         if (index > size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
@@ -137,7 +139,7 @@ public class ImmutableLinkedList implements ImmutableList {
 
     public int indexOf(Object e) {
         Node current = head;
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             if (current.getValue().equals(e)) {
                 return i;
             }
@@ -178,8 +180,9 @@ public class ImmutableLinkedList implements ImmutableList {
             arrayString.append(", ");
             current = current.getNext();
         }
-        if (size >= 1){
-            arrayString.delete(arrayString.length() - 2, arrayString.length());
+        if (size >= 1) {
+            arrayString.delete(arrayString.length() - 2,
+                    arrayString.length());
         }
         arrayString.append("]");
         return arrayString.toString();

@@ -26,19 +26,19 @@ public class RWayTrie implements Trie {
         @Getter @Setter
         private Node parent;
 
-        public Node() {
+        Node() {
             children = new Node[CHILDREN];
             value = NOT_LAST;
         }
 
-        public Node(char letter) {
+        Node(char letter) {
             data = letter;
             children = new Node[CHILDREN];
             value = NOT_LAST;
         }
 
         public void checkIndex(int index) {
-            if (index < 0 || index >= CHILDREN ) {
+            if (index < 0 || index >= CHILDREN) {
                 throw new IndexOutOfBoundsException();
             }
         }
@@ -68,13 +68,12 @@ public class RWayTrie implements Trie {
     public RWayTrie() {
         root = new Node();
         size = 0;
-
     }
 
     public void add(Tuple t) {
         Node current = root;
         for (Character letter: t.term.toCharArray()) {
-            if (current.getChild(letter) == null){
+            if (current.getChild(letter) == null) {
                 current.setChild(letter);
             }
             current = current.getChild(letter);
@@ -123,8 +122,12 @@ public class RWayTrie implements Trie {
         return strings;
     }
     private void collect(Node current, String pre, Queue q)  {
-        if (current == null) return;
-        if (!current.notLast()) q.enqueue(pre);
+        if (current == null) {
+            return;
+        }
+        if (!current.notLast()) {
+            q.enqueue(pre);
+        }
         for (int i = 0; i < Node.CHILDREN; i++) {
             collect(current.getChild(i),
                     pre + (char) (i + Node.STARTING_CODE),
